@@ -9,14 +9,14 @@ void playersData(Player *players) {
   for (int i = 0; i < PLAYERS; i++) {
     printf("### Player %d\n", i + 1);
 
-    Player player = players[i];
+    Player *player = &players[i];
     while (1) {
       printf("Introduce your name: ");
-      fgets(player.name, sizeof(player.name), stdin);
+      fgets(player->name, sizeof(player->name), stdin);
 
-      int len = strlen(player.name);
-      if (len > 0 && player.name[len - 1] == '\n') {
-        player.name[len - 1] = '\0';
+      int len = strlen(player->name);
+      if (len > 0 && player->name[len - 1] == '\n') {
+        player->name[len - 1] = '\0';
         break;
       }
       printf("Not valid name.\n");
@@ -27,19 +27,19 @@ void playersData(Player *players) {
       char c = getchar();
       while ('\n' != getchar()); // delete all excess characters
       if (!isdigit(c)) {
-        player.symbol = c;
+        player->symbol = c;
         break;
       }
       printf("Please, do not choose a number\n");
     }
 
-    player.turn = 0;
+    player->turn = 0;
 
     for (int j = 0; j < CELLS; j++) {
-      player.cells[j] = 0;
+      player->cells[j] = 0;
     }
 
-    printf("Name: %s, Symbol: %c\n\n", player.name, player.symbol);
+    printf("Name: %s, Symbol: %c\n\n", player->name, player->symbol);
   }
 }
 

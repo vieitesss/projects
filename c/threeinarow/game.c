@@ -36,7 +36,7 @@ void printTable(char symbols[], int choosed[]) {
     if (i % 3 == 0) {
       printf("\n%s\n|", constLine);
     }
-    printf(" %c |", (choosed[i])? symbols[i] : (i + 1) + '0');
+    printf(" %c |", (choosed[i]) ? symbols[i] : (i + 1) + '0');
   }
   printf("\n%s\n", constLine);
 }
@@ -44,13 +44,13 @@ void printTable(char symbols[], int choosed[]) {
 int newTurn(Game *game, int turn) {
   Player *player = &game->players[turn];
   player->turn++;
+  printf("%s\n", player->name);
   chooseCell(player, game->choosed, game->symbols);
   int f = checkFinish(player, game->choosed);
   if (f == 1) {
     printf("%s WINS!!!\n", player->name);
     return 1;
-  }
-  else if (f == 2) {
+  } else if (f == 2) {
     printf("IT'S A DRAW!!!\n");
     return 1;
   }
@@ -73,45 +73,47 @@ int checkFinish(Player *player, int choosed[]) {
 
   for (int i = 0; i < CHECK; i++) {
     // Lines
-    if (pCells[l] && pCells[l + 1] && pCells[l + 2] && 
-        choosed[l] && choosed[l + 1] && choosed[l + 2]){
+    if (pCells[l] && pCells[l + 1] && pCells[l + 2] && choosed[l] &&
+        choosed[l + 1] && choosed[l + 2]) {
       printf("\nLINES WINNING\n");
       return 1;
     }
 
     // Columns
-    if (pCells[c] && pCells[c + 3] && pCells[c + 6] && 
-        choosed[c] && choosed[c + 3] && choosed[c + 6]){
+    if (pCells[c] && pCells[c + 3] && pCells[c + 6] && choosed[c] &&
+        choosed[c + 3] && choosed[c + 6]) {
       printf("\nCOLUMNS WINNING\n");
       return 1;
     }
 
     // Diagonals
     if (c == 0) {
-      if (pCells[c] && pCells[c + 4] && pCells[c + 8] &&
-          choosed[c] && choosed[c + 4] && choosed[c + 8]) {
+      if (pCells[c] && pCells[c + 4] && pCells[c + 8] && choosed[c] &&
+          choosed[c + 4] && choosed[c + 8]) {
         printf("\nDIAGONAL 1 WINNING\n");
         return 1;
       }
     }
 
     if (c == 2) {
-      if (pCells[c] && pCells[c + 2] && pCells[c + 4] &&
-          choosed[c] && choosed[c + 2] && choosed[c + 4]) {
+      if (pCells[c] && pCells[c + 2] && pCells[c + 4] && choosed[c] &&
+          choosed[c + 2] && choosed[c + 4]) {
         printf("\nDIAGONAL 2 WINNING\n");
         return 1;
       }
     }
-    
+
     c++;
     l = l + 3;
   }
 
   int cc = 0; // cells choosed
   for (int i = 0; i < CELLS; i++) {
-    if (choosed[i]) cc++;
+    if (choosed[i])
+      cc++;
   }
-  if (cc == 9) return 2;
+  if (cc == 9)
+    return 2;
 
   return 0;
 }
