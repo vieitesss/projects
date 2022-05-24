@@ -44,7 +44,6 @@ void printTable(char symbols[], int choosed[]) {
 int newTurn(Game *game, int turn) {
   Player *player = &game->players[turn];
   player->turn++;
-  printf("%s\n", player->name);
   chooseCell(player, game->choosed, game->symbols);
   int f = checkFinish(player, game->choosed);
   if (f == 1) {
