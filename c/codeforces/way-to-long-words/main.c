@@ -18,7 +18,6 @@ int main() {
     words[i] = word + WLENGTH * i;
   }
 
-  int j;
   for (int i = 0; i < w; i++) {
     scanf("%s", words[i]);
   }
