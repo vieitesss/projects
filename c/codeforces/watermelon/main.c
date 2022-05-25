@@ -1,10 +1,13 @@
 #include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 100
 
 int main() {
-  int w;
-  scanf("%d", &w);
+  int *w = malloc(MAX * sizeof(int));
+  scanf("%d", w);
 
-  if (w % 2 == 0 && w != 2)
+  if (*w % 2 == 0 && *w != 2)
     printf("YES");
   else
     printf("NO");

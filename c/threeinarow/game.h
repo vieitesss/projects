@@ -2,6 +2,7 @@
 #define GAME
 
 #include "player.h"
+#include <stdbool.h>
 
 #define PLAYERS 2
 #define CELLS 9
@@ -10,13 +11,13 @@
 typedef struct Game {
   Player players[2];
   char symbols[CELLS];
-  int choosed[CELLS];
+  bool choosed[CELLS];
 }Game;
 
 void startGame();
 int newTurn(Game*, int);
 void initialize(Game*);
-void printTable(char*, int*);
-int checkFinish(Player*, int*);
+void printTable(char*, bool*);
+int checkFinish(Player*, bool*);
 
 #endif // !GAME

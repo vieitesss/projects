@@ -29,7 +29,7 @@ void initialize(Game *game) {
   }
 }
 
-void printTable(char symbols[], int choosed[]) {
+void printTable(char symbols[], bool choosed[]) {
   char constLine[13] = "|---|---|---|";
 
   for (int i = 0; i < CELLS; i++) {
@@ -62,11 +62,11 @@ int newTurn(Game *game, int turn) {
  *    1: Player wins
  *    2: Draw
  */
-int checkFinish(Player *player, int choosed[]) {
+int checkFinish(Player *player, bool choosed[]) {
   if (player->turn < 3) {
     return 0;
   }
-  int *pCells = player->cells;
+  bool *pCells = player->cells;
   int l = 0;
   int c = 0;
 

@@ -43,7 +43,7 @@ void playersData(Player *players) {
   }
 }
 
-void chooseCell(Player *player, int choosed[], char symbols[]) {
+void chooseCell(Player *player, bool choosed[], char symbols[]) {
   printf("\n## %s plays.\n", player->name);
   while (1) {
     printf("Choose a cell: ");
