@@ -9,8 +9,14 @@ int main() {
   int *cases = malloc(MAX * sizeof(int));
   scanf("%d", cases);
 
+  /*
+   * a and b: are the numbers that we are comparing at the moment
+   * length: is the number of numbers for each case
+   * consec: number of consecutive loops finding a lower number than the
+   *    previous
+   * total: max number of subarrays which number of inversions is odd
+   */
   int *a, *b, *length, i, j, consec, total;
-  bool impar;
   for (i = 0; i < *cases; i++) {
     total = 0;
     length = (int *)malloc(MAX * sizeof(int));
