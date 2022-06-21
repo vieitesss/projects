@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gcc main.c -o exit
+gcc main.c -lm -o exit
 
 if [[ "$(echo $?)" != "0" ]]; then
    return 1 
