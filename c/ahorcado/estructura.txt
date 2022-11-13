@@ -1,0 +1,63 @@
+Representación:
+            
+ .2 |-------.3
+    |      |
+    |     ( ) .4
+    |      |
+    |   .6/|\.7
+    |      |
+    |      |.5
+    |   .8/ \.9
+    |    |---| 
+    | .10|   | 
+  __|____|___|__ .1
+
+  ········3
+ 2·      ·
+  ·     · ·4
+  ·      ·
+  ·     ···
+  ·   6. · .7
+  ·      ·5
+  ·      ·
+  ·    8· ·9
+  ·    ·   · 
+  ·  10····· 
+  ·    ·   ·1
+··············
+
+  ********** -> palabra a adivinar
+
+  letras mencionadas: {a, b, c, ...} -> muestra las letras ya dichas
+
+
+
+Normas:
+
+- Se escoge cualquier letra del abecedario
+    - Si la letra no forma parte de la palabra se dibuja en el orden indicado en la representación de arriba
+    - Si la letra forma parte de la palabra, se sustituyen los asteriscos por la letra
+        - Se añade la letra al conjunto de letras mencionadas
+- Se pierde si de dibuja el muñeco entero (sin la "caja")
+    - El número 10 indica que se quita esa "caja", la cual se dibuja en el primer fallo
+- Se gana si se adivina la palabra
+
+Estructura del proyecto:
+
+- Main.c -> Ejecuta el método principal
+- Ahorcado.c -> Archivo con toda la lógica del programa
+- Ahorcado.h -> header de Ahorcado.c
+    - Tendrá una estructura con los siguientes campos:
+        · Palabra a adivinar
+        · Lista de estados (struct** estados) (1)
+        · Letras elegidas -> el máximo es: el número de letras distintas de la palabra + 10
+    - Cada estado será un array de enteros que indican las posiciones del string del dibujo en las que se tienen que poner los puntos
+    - Dos macros:
+        · FILAS 
+        · COLUNMAS
+    - Un string que represanta el dibujo
+
+El dibujo estará almacenado como un string y para imprimirlo por pantalla simplemente habrá que ir recorriéndolo e imprimiendo saltos de línea
+cada vez que que se llega al máximo número de columnas indicado en COLUMNAS.
+
+con pk (k = 1, 2, 3, ...) = estructura Punto
