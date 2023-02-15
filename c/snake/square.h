@@ -3,10 +3,10 @@
 
 #include "direction.h"
 
-class Snake {
+class Square {
 public:
-    Snake();
-    Snake(float xPos, float yPos);
+    Square();
+    Square(float xPos, float yPos);
     static float getSideLen();
     static float getXPosition();
     static void setXPosition(float x);
@@ -21,7 +21,7 @@ public:
 private:
     static float xPos;
     static float yPos;
-    static float snakeLen;
+    static float sideLen;
     static Direction direction;
     static float speed;
 };

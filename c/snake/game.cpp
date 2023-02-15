@@ -9,7 +9,7 @@
 #endif // !OPENGL
 
 #include "game.h"
-#include "snake.h"
+#include "square.h"
 #include "direction.h"
 #include <iostream>
 
@@ -20,7 +20,7 @@ using namespace std;
 const float Game::xLen = 1000.0;
 const float Game::yLen = 750.0;
 const float Game::fps = 30.0;
-Snake Game::snake(100, 100);
+vector<Square> Game::snake;
 /* Snake Game::snake; */
 
 float Game::getXLen() {
@@ -32,21 +32,25 @@ float Game::getYLen() {
 }
 
 void Game::drawSnake() {
-    float snakeXPos = snake.getXPosition();
-    float snakeYPos = snake.getYPosition();
-    float snakeLen = snake.getSideLen();
-    glBegin(GL_QUADS);
-    glColor3ub(255, 0, 0);
-    glVertex2f(snakeXPos, snakeYPos);
-    glVertex2f(snakeXPos + snakeLen, snakeYPos);
-    glVertex2f(snakeXPos + snakeLen, snakeYPos + snakeLen);
-    glVertex2f(snakeXPos, snakeYPos + snakeLen);
-    glEnd();
+    float squareLen = Game::snake.front().getSideLen();
+
+    for (auto currentSquare = Game::snake.begin(); currentSquare != Game::snake.end(); currentSquare++) {
+        float snakeXPos = currentSquare->getXPosition();
+        float snakeYPos = currentSquare->getYPosition();
+
+        glBegin(GL_QUADS);
+        glColor3ub(255, 0, 0);
+        glVertex2f(snakeXPos, snakeYPos);
+        glVertex2f(snakeXPos + squareLen, snakeYPos);
+        glVertex2f(snakeXPos + squareLen, snakeYPos + squareLen);
+        glVertex2f(snakeXPos, snakeYPos + squareLen);
+        glEnd();
+    }
 }
 
 void Game::generateMatrix() {
-    float snakeLen = snake.getSideLen();
-    for (int x = 0; x < xLen; x += snakeLen) {
+    float squareLen = Game::snake.front().getSideLen();
+    for (int x = 0; x < xLen; x += squareLen) {
         glBegin(GL_LINES);
         glColor3ub(0, 0, 0);
         glVertex2f(x, yLen);
@@ -54,7 +58,7 @@ void Game::generateMatrix() {
         glEnd();
     }
 
-    for (int y = 0; y < yLen; y += snakeLen) {
+    for (int y = 0; y < yLen; y += squareLen) {
         glBegin(GL_LINES);
         glColor3ub(0, 0, 0);
         glVertex2f(0, y);
@@ -64,17 +68,17 @@ void Game::generateMatrix() {
 }
 
 void Game::Update(int state) {
-    snake.move();
+    Square::move();
     glutPostRedisplay();
-    glutTimerFunc(1000.0/snake.getSpeed(), Game::Update, 0);
+    glutTimerFunc(1000.0/Square::getSpeed(), Game::Update, 0);
 }
 
-void Game::Refresh(int state) {
+void *Game::Refresh(int state) {
     glutPostRedisplay();
-    glutTimerFunc(1000.0/30.0, Game::Refresh, 0);
+    glutTimerFunc(1000.0/120.0, (void *) Game::Refresh, 0);
 }
 
-void Game::Display() {
+void Game::Display(void) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
@@ -93,16 +97,16 @@ void Game::movement(int key, int x, int y) {
     glPushMatrix();
     switch (key) {
         case GLUT_KEY_UP:
-            snake.setDirection(Direction::UP);
+            Square::setDirection(Direction::UP);
             break;
         case GLUT_KEY_DOWN:
-            snake.setDirection(Direction::DOWN);
+            Square::setDirection(Direction::DOWN);
             break;
         case GLUT_KEY_RIGHT:
-            snake.setDirection(Direction::RIGHT);
+            Square::setDirection(Direction::RIGHT);
             break;
         case GLUT_KEY_LEFT:
-            snake.setDirection(Direction::LEFT);
+            Square::setDirection(Direction::LEFT);
             break;
         default:
             
@@ -134,6 +138,8 @@ Game::Game() {
     glutSpecialFunc(movement);
 
     glutDisplayFunc(Display);
+
+    Game::snake.push_back(*new Square());
 
     Game::Refresh(0);
     Game::Update(0);

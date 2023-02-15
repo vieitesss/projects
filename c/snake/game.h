@@ -1,7 +1,10 @@
 #ifndef GAME
 #define GAME
 
-#include "snake.h"
+#include "square.h"
+#include <vector>
+
+using namespace std;
 
 class Game {
 public:
@@ -13,15 +16,15 @@ public:
     const static float xLen;
     const static float yLen;
     const static float fps;
-    static Snake snake;
+    static vector<Square> snake;
     // next features:
     // - points
 
-    static void Display();
+    void Display(void);
     static void generateMatrix();
     static void drawSnake();
     static void movement(int key, int x, int y);
-    static void Refresh(int state);
+    void Refresh(int state);
     static void Update(int state);
 };
 
