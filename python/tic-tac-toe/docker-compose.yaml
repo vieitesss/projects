@@ -5,7 +5,6 @@ services:
     build: .
     container_name: 'python-app'
     stdin_open: true
-    working_dir: '/app/src'
     tty: true
     volumes:
       - ./src:/app/src
